@@ -12,7 +12,8 @@ blogsRouter.get("/:id",
     param("id").isMongoId().withMessage("Invalid blog id"),
     tokenVerifierMiddleware,
     validateRequestDataMiddleware,
-    getBlogByIdController);
+    getBlogByIdController
+);
 
 blogsRouter.post("/", 
     body("title").exists().isString(),

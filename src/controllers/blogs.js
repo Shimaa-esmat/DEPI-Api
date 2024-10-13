@@ -2,8 +2,8 @@ import BlogModel from "../models/blogs.js";
 
 async function createBlogController(req, res) {
     try {
-        await BlogModel.create({ ...req.body, author: req.user._id });
-        return res.status(201).json({ message: "Blog created" });
+        const blog = await BlogModel.create({ ...req.body, author: req.user._id });
+        return res.status(201).json(blog);
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

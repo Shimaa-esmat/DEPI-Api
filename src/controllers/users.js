@@ -25,8 +25,9 @@ async function registerController(req, res){
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         req.body.password = hashedPassword;
 
-        await UserModel.create(req.body);
-        return res.status(201).json({ message: "User created" });
+        const user = await UserModel.create(req.body);
+
+        return res.status(201).json({ token: createJWT({ userId: user._id }), type: "Bearer" });
     } catch (error) {
         if (error.code === 11000) {
             return res.status(409).json({ message: "Email already exists" });
